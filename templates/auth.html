@@ -1,0 +1,65 @@
+<section class="auth-container">
+    <div class="auth-form">
+        <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Login</button>
+            <button class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+        
+        <div class="auth-content">
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form-content active">
+                <h2>Welcome Back</h2>
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#forgot-password" class="forgot-link">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-primary auth-btn">Login to Account</button>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form-content">
+                <h2>Create Account</h2>
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Phone Number</label>
+                    <input type="tel" id="signup-phone" placeholder="+91 1234567890">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••">
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text">Weak</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" id="signup-confirm" required placeholder="••••••••">
+                </div>
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" required> I agree to Terms & Privacy
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary auth-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+</section>

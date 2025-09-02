@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Learning Labs - SecuriLearn</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .labs-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .lab-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .lab-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        }
+        
+        .lab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+        
+        .difficulty {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .difficulty.easy { background: #00c853; color: white; }
+        .difficulty.medium { background: #ffab00; color: black; }
+        .difficulty.hard { background: #ff1744; color: white; }
+        
+        .lab-card h3 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .lab-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .lab-window {
+            background: var(--bg-secondary);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-editor {
+            background: #1e1e1e;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            position: relative;
+        }
+        
+        .code-editor::before {
+            content: 'JavaScript';
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: var(--accent-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .hint-box {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="nav-logo">SecuriLearn</a>
+                <div class="nav-menu">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/xss/" class="nav-link">XSS Course</a>
+                    <a href="/xss-labs/" class="nav-link">XSS Labs</a>
+                    <a href="#" class="nav-link">About</a>
+                    <button id="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
+                    <a href="/auth/" class="nav-link button signup-button">Sign Up</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>XSS Learning Labs</h1>
+            <p class="lead">Practice Cross-Site Scripting in a safe, controlled environment. Learn by doing!</p>
+        </section>
+
+        <div class="labs-container">
+            <div class="lab-grid">
+                <div class="lab-card">
+                    <span class="difficulty easy">Easy</span>
+                    <h3>Reflected XSS Basic</h3>
+                    <p>Learn the fundamentals of reflected XSS attacks with simple input validation bypass.</p>
+                    <a href="/xss-labs/lab1.html" class="btn-primary">Start Lab</a>
+                </div>
+                
+                <div class="lab-card">
+                    <span class="difficulty easy">Easy</span>
+                    <h3>DOM-Based XSS</h3>
+                    <p>Understand DOM-based XSS attacks and how they differ from reflected XSS.</p>
+                    <a href="/xss-labs/lab2.html" class="btn-primary">Start Lab</a>
+                </div>
+                
+                <div class="lab-card">
+                    <span class="difficulty medium">Medium</span>
+                    <h3>Stored XSS Challenge</h3>
+                    <p>Practice stored XSS attacks that persist across sessions and affect multiple users.</p>
+                    <a href="/xss-labs/lab3.html" class="btn-primary">Start Lab</a>
+                </div>
+                
+                <div class="lab-card">
+                    <span class="difficulty hard">Hard</span>
+                    <h3>Advanced Filter Bypass</h3>
+                    <p>Challenge yourself with advanced filter evasion techniques and obfuscation.</p>
+                    <a href="/xss-labs/lab4.html" class="btn-primary">Start Lab</a>
+                </div>
+            </div>
+
+            <div class="lab-window">
+                <h2>Practice Environment</h2>
+                <p>Try your XSS payloads in this safe sandbox:</p>
+                
+                <div class="code-editor">
+                    &lt;script&gt;<br>
+                    &nbsp;&nbsp;// Try your XSS payload here<br>
+                    &nbsp;&nbsp;alert('XSS');<br>
+                    &lt;/script&gt;
+                </div>
+                
+                <div class="hint-box">
+                    <strong>💡 Hint:</strong> Start with simple alert boxes and gradually try more complex payloads.
+                </div>
+                
+                <button class="submit-btn">Test Payload</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 SecuriLearn. All rights reserved. For educational purposes only.</p>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

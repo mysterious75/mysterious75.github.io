@@ -118,3 +118,59 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# ... existing code ...
+
+def render_auth_page():
+    base_template = load_template('base.html')
+    auth_template = load_template('auth.html')
+    return base_template.replace("{{ content }}", auth_template)
+
+def render_xss_labs_page():
+    try:
+        with open('xss-labs/index.html', 'r') as file:
+            return file.read()
+    except FileNotFoundError:
+        return "XSS Labs page not found"
+
+def main():
+    print("Building SecuriLearn website with new features...")
+    
+    courses = load_courses()
+    
+    # Render main pages
+    homepage_html = render_homepage(courses)
+    with open('index.html', 'w') as file:
+        file.write(homepage_html)
+    print("✓ Generated index.html")
+    
+    # Render auth page
+    auth_html = render_auth_page()
+    ensure_directory('auth')
+    with open('auth/index.html', 'w') as file:
+        file.write(auth_html)
+    print("✓ Generated auth/index.html")
+    
+    # Render XSS labs page
+    ensure_directory('xss-labs')
+    xss_labs_html = render_xss_labs_page()
+    with open('xss-labs/index.html', 'w') as file:
+        file.write(xss_labs_html)
+    print("✓ Generated xss-labs/index.html")
+    
+    # Render course pages
+    for course in courses:
+        course_dir = course['page_name']
+        ensure_directory(course_dir)
+        
+        course_html = render_course_page(course)
+        with open(f'{course_dir}/index.html', 'w') as file:
+            file.write(course_html)
+        print(f"✓ Generated {course_dir}/index.html")
+    
+    print("Build complete! New features added:")
+    print("  - Auth system (Signup/Login)")
+    print("  - XSS Learning Labs")
+    print("  - Spelling corrections")
+
+# ... rest of the code ...

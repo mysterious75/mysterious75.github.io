@@ -41,3 +41,96 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+// Auth functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Auth tabs functionality
+    const authTabs = document.querySelectorAll('.auth-tab');
+    const authForms = document.querySelectorAll('.auth-form-content');
+    
+    if (authTabs.length > 0) {
+        authTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Update active tab
+                authTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show corresponding form
+                authForms.forEach(form => {
+                    form.classList.remove('active');
+                    if (form.id === `${tabName}-form`) {
+                        form.classList.add('active');
+                    }
+                });
+            });
+        });
+    }
+    
+    // Password strength indicator
+    const passwordInput = document.getElementById('signup-password');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            const strengthBar = document.querySelector('.strength-bar');
+            const strengthText = document.querySelector('.strength-text');
+            const password = this.value;
+            
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/)) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+            
+            const width = (strength / 5) * 100;
+            strengthBar.style.width = `${width}%`;
+            
+            if (strength <= 2) {
+                strengthBar.style.background = '#ff4757';
+                strengthText.textContent = 'Weak';
+            } else if (strength <= 4) {
+                strengthBar.style.background = '#ffa502';
+                strengthText.textContent = 'Medium';
+            } else {
+                strengthBar.style.background = '#2ed573';
+                strengthText.textContent = 'Strong';
+            }
+        });
+    }
+    
+    // Form submission
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('🔒 Login functionality will be implemented with backend integration');
+        });
+    }
+    
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+            
+            if (password !== confirm) {
+                alert('❌ Passwords do not match!');
+                return;
+            }
+            
+            alert('✅ Account creation functionality will be implemented with backend integration');
+        });
+    }
+    
+    // XSS Lab functionality
+    const testButton = document.querySelector('.submit-btn');
+    if (testButton) {
+        testButton.addEventListener('click', function() {
+            alert('🔒 XSS payload testing will be implemented with proper sandboxing');
+        });
+    }
+});

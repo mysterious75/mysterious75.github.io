@@ -28,21 +28,41 @@ def render_homepage(courses):
             <div class="course-icon">{course['icon']}</div>
             <h3>{course['title']}</h3>
             <p>{course['description']}</p>
-            <a href="/{course['page_name']}/" class="btn-primary">Learn More</a>
+            <a href="/{course['page_name']}/" class="btn-primary">Access Course Content</a>
         </div>
         """
     
     homepage_content = f"""
     <section class="hero">
         <h1>Master Cybersecurity</h1>
-        <p class="lead">Professional, in-depth courses for aspiring ethical hackers and security professionals.</p>
+        <p class="lead">Professional courses with video tutorials, PDF resources, and reference materials for aspiring ethical hackers.</p>
     </section>
 
     <section id="courses">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 2rem;">Our Courses</h2>
+            <h2 style="text-align: center; margin-bottom: 2rem;">Available Courses</h2>
             <div class="course-grid">
                 {course_cards_html}
+            </div>
+        </div>
+    </section>
+    
+    <section style="padding: 4rem 2rem; text-align: center; background: var(--bg-secondary);">
+        <div class="container">
+            <h2>What's Included in Each Course?</h2>
+            <div class="media-grid" style="margin-top: 3rem;">
+                <div class="media-card">
+                    <h3>🎬 Video Tutorials</h3>
+                    <p>Step-by-step video demonstrations of techniques and tools.</p>
+                </div>
+                <div class="media-card">
+                    <h3>📚 PDF Guides</h3>
+                    <p>Comprehensive documentation and cheatsheets for reference.</p>
+                </div>
+                <div class="media-card">
+                    <h3>🖼️ Visual References</h3>
+                    <p>Screenshots, diagrams, and reference images.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -67,7 +87,7 @@ def ensure_directory(directory):
         os.makedirs(directory)
 
 def main():
-    print("Building SecuriLearn website...")
+    print("Building SecuriLearn website with media support...")
     
     courses = load_courses()
     
@@ -75,18 +95,26 @@ def main():
     with open('index.html', 'w') as file:
         file.write(homepage_html)
     print("✓ Generated index.html")
-
+    
     for course in courses:
         course_dir = course['page_name']
         ensure_directory(course_dir)
-
+        
         course_html = render_course_page(course)
         with open(f'{course_dir}/index.html', 'w') as file:
             file.write(course_html)
         print(f"✓ Generated {course_dir}/index.html")
-
-    print("Build complete! Your static site is ready.")
+    
+    # Create assets directories if they don't exist
+    for asset_type in ['videos', 'images', 'pdfs', 'icons']:
+        ensure_directory(f'assets/{asset_type}')
+    
+    print("Build complete! Your media-ready website is ready.")
+    print("You can now add your files to:")
+    print("  - assets/videos/    for video files")
+    print("  - assets/images/    for image files") 
+    print("  - assets/pdfs/      for PDF files")
+    print("  - assets/icons/     for icon files")
 
 if __name__ == "__main__":
     main()
-

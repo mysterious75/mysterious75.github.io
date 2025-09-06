@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clickjacking Proof of Concept - Statuspage Vulnerability</title>
+    <style>
+        /* Fake promotional content */
+        .promo-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 700px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Fake Statuspage Embed */
+        .status-embed {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            height: 130px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            z-index: 10000;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            font-family: Arial, sans-serif;
+            display: none; /* Initially hidden */
+        }
+        
+        .claim-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        
+        .claim-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .status-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; padding: 20px; background: #f8f9fa;">
+    
+    <div class="promo-banner">
+        <h1 style="font-size: 2.5em; margin-bottom: 20px;">🎉 CONGRATULATIONS!</h1>
+        <p style="font-size: 1.2em; margin-bottom: 30px;">You've been selected to win an iPhone 15 Pro Max!</p>
+        <p style="font-size: 1.1em; margin-bottom: 30px;">👉 Limited time offer - Click below to claim instantly!</p>
+        
+        <button class="claim-button" onclick="startAttack()">
+            🎁 CLAIM YOUR PRIZE NOW
+        </button>
+        
+        <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            🔒 100% Secure | ⚡ Instant Delivery | 📦 Free Shipping
+        </p>
+    </div>
+
+    <!-- Fake Statuspage Embed -->
+    <div class="status-embed" id="statusEmbed">
+        <div class="status-header">
+            <div class="status-dot"></div>
+            <h4 style="margin: 0;">System Status</h4>
+        </div>
+        <p style="margin: 5px 0; color: #666;">All systems operational</p>
+        <button style="background: #3b82f6; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 5px;" 
+                onclick="stealCredentials()">
+            View Details
+        </button>
+    </div>
+
+    <!-- Explanation Section -->
+    <div style="max-width: 800px; margin: 50px auto; text-align: left; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+        <h2>🔍 What's Happening Here?</h2>
+        <p>This demonstrates a <strong>clickjacking attack</strong> made possible by a Statuspage vulnerability:</p>
+        
+        <ol>
+            <li>The "Claim Prize" button triggers a hidden iframe containing Statuspage embed</li>
+            <li>Attackers can force the embed to show via postMessage vulnerability</li>
+            <li>The embed covers malicious content, tricking users into clicking</li>
+            <li>Credentials and sensitive actions can be stolen</li>
+        </ol>
+        
+        <p><strong>Impact:</strong> Real attacks could steal login credentials, initiate unauthorized actions, or deliver malware.</p>
+    </div>
+
+    <script>
+    function startAttack() {
+        // Show the fake status embed (simulating the vulnerability)
+        const embed = document.getElementById('statusEmbed');
+        embed.style.display = 'block';
+        
+        // Show explanation
+        setTimeout(() => {
+            alert('🎯 VULNERABILITY EXPLOITED!\n\n' +
+                  'The Statuspage embed was forcefully shown via postMessage vulnerability.\n\n' +
+                  'In real attack, this could be used to hide malicious buttons under the embed.');
+        }, 500);
+    }
+    
+    function stealCredentials() {
+        alert('⚠️ CREDENTIALS STOLEN!\n\n' +
+              'Username: admin\n' +
+              'Password: ********\n\n' +
+              'In real attack, this could be your actual login credentials!');
+    }
+    </script>
+</body>
+</html>
